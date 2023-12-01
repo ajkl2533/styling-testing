@@ -6,9 +6,9 @@ import {
   getSortedRowModel,
   flexRender,
 } from '@tanstack/react-table';
-import { makeData } from '../makeData';
+import { Person, makeData } from '../makeData';
 
-const columnHelper = createColumnHelper();
+const columnHelper = createColumnHelper<Person>();
 // Make some columns!
 const defaultColumns = [
   // Grouping Column
@@ -106,7 +106,7 @@ export function Table() {
                         {{
                           asc: ' 🔼',
                           desc: ' 🔽',
-                        }[header.column.getIsSorted()] ?? null}
+                        }[header.column.getIsSorted() as string] ?? null}
                       </div>
                     )}
                   </th>

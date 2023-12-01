@@ -1,5 +1,4 @@
-import React, { useMemo } from 'react';
-import AppLayout from './layouts/AppLayout';
+import React from 'react';
 import { Table } from './table/Table';
 
 function App() {

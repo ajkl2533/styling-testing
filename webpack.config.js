@@ -38,7 +38,7 @@ module.exports = {
   resolve: {
     modules: ['node_modules'],
     mainFiles: ['index'],
-    extensions: ['.js', '.mjs', '.jsx', '.json'],
+    extensions: ['.js', '.mjs', '.jsx', '.json', '.ts', '.tsx'],
   },
   module: {
     rules: [
@@ -47,7 +47,7 @@ module.exports = {
         use: [loaders.html],
       },
       {
-        test: /\.jsx?$/,
+        test: /\.(j|t)sx?$/,
         exclude: /node_modules/,
         use: [loaders.swc],
       },

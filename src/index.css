@@ -3,7 +3,7 @@
 }
 
 html {
-  font-size: 12px;
+  font-size: 16px;
   font-family: 'Roboto Mono', monospace;
 }
 
@@ -23,4 +23,15 @@ body,
 a {
   color: inherit;
   text-decoration: none;
+}
+
+:root {
+  --color-border: rgba(0 0 0/15%);
+  --color-background: white;
+  --color-text: rgb(42 42 42);
+  --font-size: 1rem;
+  --font-weight-header: bold;
+  --radius: 0.5rem;
+  --space-cell: 1rem;
+  --space-cell-header: 0.5rem 1rem;
 }
