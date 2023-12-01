@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const prod = process.env.NODE_ENV === 'production';
 
@@ -83,6 +84,10 @@ module.exports = {
           }),
         ]
       : []),
+    new BundleAnalyzerPlugin({
+      openAnalyzer: false,
+      analyzerMode: 'static',
+    })
   ],
   optimization: {
     minimize: prod,
