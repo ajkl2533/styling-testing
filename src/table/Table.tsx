@@ -6,7 +6,7 @@ import {
   getSortedRowModel,
   flexRender,
 } from '@tanstack/react-table';
-import { Person, makeData } from '../makeData';
+import {persons,Person} from '../data';
 
 const columnHelper = createColumnHelper<Person>();
 // Make some columns!
@@ -64,11 +64,17 @@ const defaultColumns = [
     ],
   }),
 ];
+const shuffle = (array: string[]) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+};
 
-const DATA_LENGTH = 1000;
 export function Table() {
   const [sorting, setSorting] = useState([]);
-  const [data, setData] = useState(() => makeData(DATA_LENGTH));
+  const [data, setData] = useState(persons as Person[]);
 
   const table = useReactTable({
     data,
@@ -82,7 +88,7 @@ export function Table() {
 
     debugTable: true,
   });
-  const refreshData = () => setData(() => makeData(DATA_LENGTH));
+  const refreshData = () => setData((prev) => shuffle(prev));
 
   return (
     <div>
