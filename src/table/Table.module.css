@@ -1,0 +1,49 @@
+.table {
+  border: 1px solid var(--color-border);
+  background-color: var(--color-background);
+  border-radius: var(--radius);
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.tr:nth-child(even) {
+  background-color: var(--color-zebra);
+}
+.td {
+  padding: var(--space-cell);
+}
+.th {
+  padding: var(--space-cell-header);
+}
+.cell {
+  border-bottom: 1px solid var(--color-border);
+
+  &:not(:last-child) {
+    border-right: 1px solid var(--color-border);
+  }
+}
+
+.name {
+  text-transform: uppercase;
+}
+
+.age {
+  font-weight: bold;
+  color: green;
+
+}
+
+.age.underage {
+  color: red
+}
+
+.complicated {
+  color: red
+}
+.relationship {
+  color: green
+}
+.single {
+  color: orange
+}

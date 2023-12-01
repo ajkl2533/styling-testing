@@ -28,7 +28,8 @@ a {
 :root {
   --color-border: rgba(0 0 0/15%);
   --color-background: white;
-  --color-text: rgb(42 42 42);
+  --color-zebra: rgb(225, 225, 225);
+  --color-text: rgb(42, 42, 42);
   --font-size: 1rem;
   --font-weight-header: bold;
   --radius: 0.5rem;

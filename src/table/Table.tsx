@@ -7,6 +7,7 @@ import {
   flexRender,
 } from '@tanstack/react-table';
 import {persons,Person} from '../data';
+import styles from './Table.module.css';
 
 const columnHelper = createColumnHelper<Person>();
 // Make some columns!
@@ -18,13 +19,14 @@ const defaultColumns = [
     columns: [
       // Accessor Column
       columnHelper.accessor('firstName', {
-        cell: (info) => info.getValue(),
+        header: () => <span>First Name</span>,
+        cell: (info) => <div className={styles.name}>{info.getValue()}</div>,
         footer: (props) => props.column.id,
       }),
       // Accessor Column
       columnHelper.accessor((row) => row.lastName, {
         id: 'lastName',
-        cell: (info) => info.getValue(),
+        cell: (info) => <div className={styles.name}>{info.getValue()}</div>,
         header: () => <span>Last Name</span>,
         footer: (props) => props.column.id,
       }),
@@ -38,6 +40,10 @@ const defaultColumns = [
       // Accessor Column
       columnHelper.accessor('age', {
         header: () => 'Age',
+        cell: (info) => {
+          const val = info.getValue();
+          return <div className={`${styles.age} ${val < 18 ? styles.underage : ''}`}>{val}</div>;
+        },
         footer: (props) => props.column.id,
       }),
       // Grouping Column
@@ -52,6 +58,18 @@ const defaultColumns = [
           // Accessor Column
           columnHelper.accessor('status', {
             header: 'Status',
+            cell: (info) => {
+              const val = info.getValue();
+              return (
+                <div
+                  className={
+                    val === 'complicated' ? styles.complicated : val === 'single' ? styles.single : styles.relationship
+                  }
+                >
+                  {val}
+                </div>
+              );
+            },
             footer: (props) => props.column.id,
           }),
           // Accessor Column
@@ -73,16 +91,11 @@ const shuffle = (array: string[]) => {
 };
 
 export function Table() {
-  const [sorting, setSorting] = useState([]);
   const [data, setData] = useState(persons as Person[]);
 
   const table = useReactTable({
     data,
     columns: defaultColumns,
-    state: {
-      sorting,
-    },
-    onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
 
@@ -94,13 +107,18 @@ export function Table() {
     <div>
       <button onClick={() => refreshData()}>Refresh data</button>
 
-      <table>
+      <table className={styles.table}>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
                 return (
-                  <th key={header.id} colSpan={header.colSpan} style={{ width: header.getSize() }}>
+                  <th
+                    className={`${styles.cell} ${styles.th}`}
+                    key={header.id}
+                    colSpan={header.colSpan}
+                    style={{ width: header.getSize() }}
+                  >
                     {header.isPlaceholder ? null : (
                       <div
                         {...{
@@ -124,9 +142,13 @@ export function Table() {
         <tbody>
           {table.getRowModel().rows.map((row) => {
             return (
-              <tr key={row.id}>
+              <tr className={styles.tr} key={row.id}>
                 {row.getVisibleCells().map((cell) => {
-                  return <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>;
+                  return (
+                    <td className={`${styles.cell} ${styles.td}`} key={cell.id}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </td>
+                  );
                 })}
               </tr>
             );
